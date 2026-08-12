@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "vercel-build": "prisma generate && prisma db push --skip-generate --accept-data-loss && (tsx prisma/seed.ts || echo 'seed skipped') && next build",
+    "vercel-build": "prisma generate && prisma db push --skip-generate && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"src/**/*.{ts,tsx,md}\"",
