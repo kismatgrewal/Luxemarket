@@ -1,0 +1,135 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_luxe.css">
+<style>
+.hero{padding:64px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:64px;line-height:1.02;font-weight:600;margin:20px 0 22px;letter-spacing:-.025em}
+.hero p.lede{font-size:17px;color:var(--ink-muted);max-width:440px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px}
+.hero-img{position:relative;height:520px;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lift)}
+.hero-img img{width:100%;height:100%}
+.hero-chip{position:absolute;left:20px;bottom:20px;background:rgba(250,248,244,.94);backdrop-filter:blur(6px);border-radius:14px;padding:14px 18px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow-card)}
+.hero-chip .av{width:40px;height:40px;border-radius:10px;overflow:hidden}
+.statstrip{display:flex;gap:52px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 0;margin-top:52px}
+.statstrip .n{font-family:"Fraunces",serif;font-size:30px;font-weight:600}
+.statstrip .l{font-size:12.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.1em}
+section{padding:66px 0}
+.cats{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.cat{text-align:center}
+.cat .ci{aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--ivory-deep);margin-bottom:12px}
+.cat .cn{font-weight:600;font-size:14px}
+.cat .cc{font-size:12px;color:var(--ink-muted)}
+.makers{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.maker{border-radius:18px;overflow:hidden;position:relative;height:340px;box-shadow:var(--shadow-card)}
+.maker img{width:100%;height:100%}
+.maker .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,0) 40%,rgba(11,11,12,.82));display:flex;flex-direction:column;justify-content:flex-end;padding:24px;color:var(--ivory)}
+.maker .ov h4{font-family:"Fraunces",serif;font-size:22px;font-weight:600}
+.maker .ov p{font-size:13px;opacity:.85;margin-top:4px}
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.value .vi{width:44px;height:44px;border-radius:12px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;color:var(--gold-deep);margin-bottom:16px}
+.value h5{font-size:16px;font-weight:600;margin-bottom:7px}
+.value p{font-size:13.5px;color:var(--ink-muted);line-height:1.6}
+.news{background:var(--ink);color:var(--ivory);border-radius:24px;padding:56px;text-align:center;margin:0 40px}
+.news h3{font-family:"Fraunces",serif;font-size:38px;font-weight:600;margin-bottom:12px}
+.news p{color:rgba(250,248,244,.7);margin-bottom:26px}
+.news .form{display:flex;gap:10px;max-width:440px;margin:0 auto}
+.news input{flex:1;height:52px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);padding:0 18px;color:#fff;font-size:14px}
+footer{background:var(--ivory-deep);padding:60px 0 34px;margin-top:20px}
+.fcols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.fcols h6{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-muted);margin-bottom:16px}
+.fcols a{display:block;font-size:13.5px;color:var(--ink-soft);margin-bottom:10px}
+.fbot{display:flex;justify-content:space-between;align-items:center;margin-top:44px;padding-top:22px;border-top:1px solid var(--border);font-size:12.5px;color:var(--ink-muted)}
+</style></head>
+<body>
+<div class="top"><div class="wrap"><span>✦ Complimentary shipping over $150 — worldwide</span><span>400+ independent makers · Vendor payouts powered by Stripe</span></div></div>
+<div class="nav"><div class="wrap">
+  <div style="display:flex;align-items:center;gap:44px">
+    <div class="brand serif">Luxe<span class="dot">Market</span></div>
+    <div class="menu"><a>New In</a><a>Watches</a><a>Bags</a><a>Jewelry</a><a>Home</a><a style="color:var(--gold-deep)">Sale</a></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Search the marketplace</span></div>
+    <div class="navicons">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <div class="cartdot"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 11a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="ct">3</span></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <span class="eyebrow">The curated marketplace</span>
+    <h1 class="serif">Exceptional things,<br>from makers worth<br>knowing.</h1>
+    <p class="lede">A multi-vendor marketplace for premium goods — watches, leather, fine jewelry, and home — from independent ateliers, delivered with care.</p>
+    <div class="hero-cta"><a class="btn btn-ink lg">Shop the edit →</a><a class="btn btn-out lg">Become a vendor</a></div>
+    <div class="statstrip">
+      <div><div class="n">438</div><div class="l">Vendors</div></div>
+      <div><div class="n">12,400</div><div class="l">Products</div></div>
+      <div><div class="n">4.9★</div><div class="l">Avg. rating</div></div>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="../public/brand/jewelry-model.jpg" alt="editorial">
+    <div class="hero-chip"><div class="av"><img src="../public/products/solstice-diamond-ring.jpg"></div><div><div style="font-weight:600;font-size:13px">Solstice Diamond Ring</div><div style="font-size:12px" class="muted">Lumière Fine Jewelry · $2,400</div></div></div>
+  </div>
+</div></div></div>
+
+<section style="padding-top:20px"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Shop by category</span><h2 class="serif">Browse the departments</h2></div></div>
+  <div class="cats">
+    <div class="cat"><div class="ci"><img src="../public/products/meridian-chronograph.jpg"></div><div class="cn">Watches</div><div class="cc">1,240 items</div></div>
+    <div class="cat"><div class="ci"><img src="../public/products/cassis-top-handle-bag.jpg"></div><div class="cn">Bags</div><div class="cc">2,180 items</div></div>
+    <div class="cat"><div class="ci"><img src="../public/products/lumiere-pearl-necklace.jpg"></div><div class="cn">Jewelry</div><div class="cc">960 items</div></div>
+    <div class="cat"><div class="ci"><img src="../public/products/rivage-sunglasses.jpg"></div><div class="cn">Eyewear</div><div class="cc">540 items</div></div>
+    <div class="cat"><div class="ci"><img src="../public/products/dune-lounge-sofa.jpg"></div><div class="cn">Home</div><div class="cc">1,870 items</div></div>
+    <div class="cat"><div class="ci"><img src="../public/products/botanica-facial-oil.jpg"></div><div class="cn">Beauty</div><div class="cc">720 items</div></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Featured</span><h2 class="serif">The Edit — this week's selection</h2></div><a class="btn btn-ghost sm">View all →</a></div>
+  <div class="pgrid">
+    <div class="pcard"><div class="thumb"><span class="tag badge b-gold">New</span><div class="fav">♡</div><img src="../public/products/meridian-chronograph.jpg"></div><h4>Meridian Automatic Chronograph</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$1,280</div><div class="stars">★★★★★</div></div></div>
+    <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/cassis-top-handle-bag.jpg"></div><h4>Cassis Top-Handle Bag</h4><div class="vend">Maison Cassis</div><div class="row"><div class="price">$890</div><div class="stars">★★★★☆</div></div></div>
+    <div class="pcard"><div class="thumb"><span class="tag badge b-red">−15%</span><div class="fav">♡</div><img src="../public/products/rivage-sunglasses.jpg"></div><h4>Rivage Round Sunglasses</h4><div class="vend">Rivage Optics</div><div class="row"><div class="price">$157<span class="strike">$185</span></div><div class="stars">★★★★★</div></div></div>
+    <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/aria-headphones.jpg"></div><h4>Aria Over-Ear Headphones</h4><div class="vend">Aria Sound</div><div class="row"><div class="price">$299</div><div class="stars">★★★★☆</div></div></div>
+    <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/maree-satchel.jpg"></div><h4>Marée Structured Satchel</h4><div class="vend">Maison Cassis</div><div class="row"><div class="price">$740</div><div class="stars">★★★★★</div></div></div>
+    <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/solstice-diamond-ring.jpg"></div><h4>Solstice Diamond Ring</h4><div class="vend">Lumière Fine Jewelry</div><div class="row"><div class="price">$2,400</div><div class="stars">★★★★★</div></div></div>
+    <div class="pcard"><div class="thumb"><span class="tag badge b-gold">New</span><div class="fav">♡</div><img src="../public/products/corso-suede-derby.jpg"></div><h4>Corso Suede Derby</h4><div class="vend">Corso Milano</div><div class="row"><div class="price">$295</div><div class="stars">★★★★☆</div></div></div>
+    <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/halston-field-watch.jpg"></div><h4>Halston Field Watch</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$340</div><div class="stars">★★★★★</div></div></div>
+  </div>
+</div></section>
+
+<section style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Meet the makers</span><h2 class="serif">Independent ateliers, one marketplace</h2></div></div>
+  <div class="makers">
+    <div class="maker"><img src="../public/brand/interior-minimal.jpg"><div class="ov"><span class="badge b-gold" style="width:fit-content;margin-bottom:10px">Verified vendor</span><h4>Dune Living</h4><p>Considered furniture & objects for the modern home — Copenhagen</p></div></div>
+    <div class="maker"><img src="../public/brand/hero-editorial.jpg"><div class="ov"><span class="badge b-gold" style="width:fit-content;margin-bottom:10px">Verified vendor</span><h4>Maison Cassis</h4><p>Hand-finished leather goods from a family atelier — Florence</p></div></div>
+    <div class="maker"><img src="../public/brand/bottle-lifestyle.jpg"><div class="ov"><span class="badge b-gold" style="width:fit-content;margin-bottom:10px">Verified vendor</span><h4>Botanica Skincare</h4><p>Small-batch botanical skincare, sustainably sourced — Lisbon</p></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="values">
+  <div class="value"><div class="vi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 2 2.4 5 5.6.8-4 3.9 1 5.5L12 20l-5 2.1 1-5.5-4-3.9 5.6-.8Z"/></svg></div><h5>Curated, not crowded</h5><p>Every vendor is reviewed and approved before a single product goes live.</p></div>
+  <div class="value"><div class="vi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg></div><h5>Secure Stripe checkout</h5><p>PCI-compliant payments with buyer protection on every order.</p></div>
+  <div class="value"><div class="vi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></div><h5>Delivered worldwide</h5><p>Real-time delivery tracking from dispatch to your doorstep.</p></div>
+  <div class="value"><div class="vi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h5>Fair vendor payouts</h5><p>Transparent commissions and automated payouts keep makers thriving.</p></div>
+</div></div></section>
+
+<section style="padding-top:0"><div class="news">
+  <h3>Join the list</h3><p>First access to new arrivals, maker stories, and members-only releases.</p>
+  <div class="form"><input placeholder="you@example.com"><a class="btn btn-gold">Subscribe</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><div class="brand serif" style="font-size:24px;margin-bottom:14px">Luxe<span class="dot">Market</span></div><p style="font-size:13.5px;color:var(--ink-muted);max-width:280px">A curated multi-vendor marketplace connecting independent makers of premium goods with discerning buyers.</p></div>
+    <div><h6>Shop</h6><a>New arrivals</a><a>Watches</a><a>Bags & leather</a><a>Fine jewelry</a><a>Home</a></div>
+    <div><h6>Sell</h6><a>Become a vendor</a><a>Vendor dashboard</a><a>Payouts & fees</a><a>Seller handbook</a></div>
+    <div><h6>Support</h6><a>Help center</a><a>Order tracking</a><a>Returns</a><a>Contact us</a></div>
+  </div>
+  <div class="fbot"><span>© 2025 LuxeMarket. All rights reserved.</span><span>Privacy · Terms · Powered by Stripe Connect</span></div>
+</div></footer>
+</body></html>

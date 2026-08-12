@@ -1,0 +1,109 @@
+name: Bug report
+description: Report a defect in LuxeMarket
+title: "bug: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please search existing issues
+        first, and **never include secrets** (API keys, tokens, `.env` values).
+        For security vulnerabilities, follow our
+        [Security Policy](../../SECURITY.md) instead of opening a public issue.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A clear and concise description of the bug.
+      placeholder: What went wrong?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal, ordered steps that reliably trigger the bug.
+      placeholder: |
+        1. Go to '...'
+        2. Click '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened? Include error messages, stack traces, or screenshots.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the app is affected?
+      options:
+        - Storefront (browse/product/cart)
+        - Checkout / Payments (Stripe)
+        - Vendor dashboard
+        - Admin console
+        - Orders / Fulfilment
+        - Payouts
+        - AI descriptions (OpenAI)
+        - Automations (n8n / webhooks)
+        - Auth / RBAC
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: LuxeMarket version or commit SHA.
+      placeholder: "1.4.0 / abc1234"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser, Node version, deployment (local / Vercel / Docker).
+      placeholder: |
+        - OS: macOS 15.5
+        - Browser: Chrome 126
+        - Node: 20.11.0
+        - Deploy: local (pnpm dev)
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste any relevant log output (redact secrets). This is rendered as code.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+        - label: I removed all secrets/credentials from this report.
+          required: true

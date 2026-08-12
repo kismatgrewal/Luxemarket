@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_luxe.css">
+<style>
+.crumb{padding:22px 0;font-size:13px;color:var(--ink-muted)}
+.crumb b{color:var(--ink);font-weight:500}
+.pdp{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;padding-bottom:20px}
+.gallery{display:grid;grid-template-columns:82px 1fr;gap:16px}
+.thumbs{display:flex;flex-direction:column;gap:12px}
+.thumbs .t{aspect-ratio:1;border-radius:12px;overflow:hidden;border:1px solid var(--border);opacity:.6}
+.thumbs .t.on{opacity:1;border:2px solid var(--ink)}
+.gmain{aspect-ratio:1;border-radius:20px;overflow:hidden;background:var(--ivory-deep);box-shadow:var(--shadow-card)}
+.info .vend{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gold-deep);font-weight:600}
+.info h1{font-family:"Fraunces",serif;font-size:40px;font-weight:600;line-height:1.08;margin:14px 0 12px;letter-spacing:-.02em}
+.rrow{display:flex;align-items:center;gap:12px;color:var(--ink-muted);font-size:13.5px;margin-bottom:22px}
+.price-lg{font-size:30px;font-weight:600;font-family:"Fraunces",serif}
+.desc{color:var(--ink-muted);line-height:1.7;font-size:14.5px;margin:22px 0}
+.opt{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted);margin-bottom:10px}
+.swatches{display:flex;gap:10px;margin-bottom:24px}
+.sw{height:40px;padding:0 18px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;font-size:13px;font-weight:500}
+.sw.on{border-color:var(--ink);background:var(--ink);color:var(--ivory)}
+.buyrow{display:flex;gap:12px;align-items:stretch;margin:8px 0 22px}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.qty span{width:44px;text-align:center;font-weight:600}
+.qty b{width:44px;height:52px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink-muted)}
+.trust{display:flex;gap:26px;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:12.5px;color:var(--ink-muted)}
+.trust div{display:flex;align-items:center;gap:8px}
+.acc{border-bottom:1px solid var(--border);padding:18px 0;display:flex;justify-content:space-between;font-weight:600;font-size:14.5px}
+.specs{padding-top:60px}
+.spectbl{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;margin-top:20px}
+.spectbl .r{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);font-size:14px}
+.spectbl .r span{color:var(--ink-muted)}
+.reviews{display:grid;grid-template-columns:280px 1fr;gap:48px;padding:56px 0}
+.rbig{font-family:"Fraunces",serif;font-size:64px;font-weight:600}
+.rbar{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--ink-muted);margin-bottom:7px}
+.rbar .track{flex:1;height:6px;background:var(--ivory-deep);border-radius:99px;overflow:hidden}
+.rbar .fill{height:100%;background:var(--gold)}
+.rev{border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.rev .h{display:flex;justify-content:space-between;margin-bottom:8px}
+</style></head><body>
+<div class="top"><div class="wrap"><span>✦ Complimentary shipping over $150 — worldwide</span><span>400+ independent makers · Vendor payouts powered by Stripe</span></div></div>
+<div class="nav"><div class="wrap">
+  <div style="display:flex;align-items:center;gap:44px"><div class="brand serif">Luxe<span class="dot">Market</span></div>
+  <div class="menu"><a>New In</a><a>Watches</a><a>Bags</a><a>Jewelry</a><a>Home</a><a style="color:var(--gold-deep)">Sale</a></div></div>
+  <div style="display:flex;align-items:center;gap:18px"><div class="pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Search the marketplace</span></div>
+  <div class="navicons"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="cartdot"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 11a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="ct">3</span></div></div></div>
+</div></div>
+
+<div class="wrap">
+  <div class="crumb">Home / Watches / <b>Meridian Automatic Chronograph</b></div>
+  <div class="pdp">
+    <div class="gallery">
+      <div class="thumbs">
+        <div class="t on"><img src="../public/products/meridian-chronograph.jpg"></div>
+        <div class="t"><img src="../public/products/halston-field-watch.jpg"></div>
+        <div class="t"><img src="../public/products/aurelia-chronograph.jpg"></div>
+        <div class="t"><img src="../public/products/meridian-chronograph.jpg"></div>
+      </div>
+      <div class="gmain"><img src="../public/products/meridian-chronograph.jpg"></div>
+    </div>
+    <div class="info">
+      <div class="vend"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Atelier Horology · Verified vendor</div>
+      <h1>Meridian Automatic Chronograph</h1>
+      <div class="rrow"><span class="stars">★★★★★</span><b style="color:var(--ink)">4.9</b> · 128 reviews · <span class="badge b-green">In stock</span></div>
+      <div class="price-lg">$1,280</div>
+      <p class="desc">A Swiss-made automatic chronograph with a navy sunburst dial, sapphire crystal, and a 42-hour power reserve. Brushed 40mm stainless case, hand-finished by an independent atelier in Geneva.</p>
+      <div class="opt">Case finish</div>
+      <div class="swatches"><div class="sw on">Brushed steel</div><div class="sw">Rose gold</div><div class="sw">Graphite</div></div>
+      <div class="buyrow">
+        <div class="qty"><b>−</b><span>1</span><b>+</b></div>
+        <a class="btn btn-ink lg" style="flex:1;justify-content:center">Add to bag — $1,280</a>
+        <a class="btn btn-out lg" style="width:54px;justify-content:center">♡</a>
+      </div>
+      <div class="trust">
+        <div>✦ Free 2-day shipping</div><div>↩ 30-day returns</div><div>⛨ 2-year warranty</div>
+      </div>
+      <div class="acc">Description &amp; details <span class="muted">−</span></div>
+      <div class="acc">Shipping &amp; returns <span class="muted">+</span></div>
+      <div class="acc">Vendor &amp; authenticity <span class="muted">+</span></div>
+    </div>
+  </div>
+
+  <div class="specs">
+    <span class="eyebrow">Specifications</span>
+    <div class="spectbl">
+      <div><div class="r"><span>Movement</span>Automatic (Sellita SW200)</div><div class="r"><span>Case size</span>40mm × 11.8mm</div><div class="r"><span>Water resistance</span>100m / 10 ATM</div></div>
+      <div><div class="r"><span>Crystal</span>Anti-reflective sapphire</div><div class="r"><span>Strap</span>Full-grain Italian leather</div><div class="r"><span>Power reserve</span>42 hours</div></div>
+    </div>
+  </div>
+
+  <div class="reviews">
+    <div>
+      <span class="eyebrow">Customer reviews</span>
+      <div class="rbig">4.9</div><div class="stars" style="font-size:16px">★★★★★</div>
+      <p class="muted" style="font-size:13px;margin:6px 0 18px">Based on 128 reviews</p>
+      <div class="rbar"><span>5★</span><div class="track"><div class="fill" style="width:86%"></div></div><span>110</span></div>
+      <div class="rbar"><span>4★</span><div class="track"><div class="fill" style="width:10%"></div></div><span>13</span></div>
+      <div class="rbar"><span>3★</span><div class="track"><div class="fill" style="width:3%"></div></div><span>4</span></div>
+      <div class="rbar"><span>2★</span><div class="track"><div class="fill" style="width:1%"></div></div><span>1</span></div>
+      <a class="btn btn-out sm" style="margin-top:16px">Write a review</a>
+    </div>
+    <div>
+      <div class="rev"><div class="h"><div><b>Daniel R.</b> <span class="badge b-green" style="margin-left:6px">Verified purchase</span></div><span class="stars">★★★★★</span></div><p class="muted" style="font-size:14px;line-height:1.6">Genuinely exceptional finishing for the price. The dial catches light beautifully and it keeps time within a few seconds a day. Packaging felt like a $5k watch.</p></div>
+      <div class="rev"><div class="h"><div><b>Priya M.</b> <span class="badge b-green" style="margin-left:6px">Verified purchase</span></div><span class="stars">★★★★★</span></div><p class="muted" style="font-size:14px;line-height:1.6">Bought as a gift and the delivery tracking kept me updated the whole way. The vendor even included a handwritten note. Will shop from Atelier Horology again.</p></div>
+      <div class="rev"><div class="h"><div><b>Marcus T.</b> <span class="badge b-neutral" style="margin-left:6px">Verified purchase</span></div><span class="stars">★★★★☆</span></div><p class="muted" style="font-size:14px;line-height:1.6">Beautiful piece, slightly larger on the wrist than I expected. Returns were painless though — swapped the strap in two days.</p></div>
+    </div>
+  </div>
+
+  <section style="padding:20px 0 70px">
+    <div class="sec-head"><div><span class="eyebrow">More from Atelier Horology</span><h2 class="serif">You may also like</h2></div><a class="btn btn-ghost sm">Visit store →</a></div>
+    <div class="pgrid">
+      <div class="pcard"><div class="thumb"><img src="../public/products/halston-field-watch.jpg"></div><h4>Halston Field Watch</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$340</div><div class="stars">★★★★★</div></div></div>
+      <div class="pcard"><div class="thumb"><img src="../public/products/aurelia-chronograph.jpg"></div><h4>Aurelia Rose-Gold Chronograph</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$520</div><div class="stars">★★★★☆</div></div></div>
+      <div class="pcard"><div class="thumb"><img src="../public/products/rivage-sunglasses.jpg"></div><h4>Rivage Round Sunglasses</h4><div class="vend">Rivage Optics</div><div class="row"><div class="price">$185</div><div class="stars">★★★★★</div></div></div>
+      <div class="pcard"><div class="thumb"><img src="../public/products/lumiere-pearl-necklace.jpg"></div><h4>Lumière Pearl Necklace</h4><div class="vend">Lumière Fine Jewelry</div><div class="row"><div class="price">$650</div><div class="stars">★★★★★</div></div></div>
+    </div>
+  </section>
+</div>
+</body></html>

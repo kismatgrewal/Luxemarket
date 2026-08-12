@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_luxe.css">
+<style>
+.lhead{padding:34px 0 24px}
+.lhead h1{font-family:"Fraunces",serif;font-size:38px;font-weight:600;letter-spacing:-.02em}
+.lbar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.chips{display:flex;gap:9px}
+.chip{height:32px;padding:0 13px;border:1px solid var(--border);border-radius:999px;display:flex;align-items:center;gap:7px;font-size:12.5px;background:#fff}
+.chip.on{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.sort{height:40px;padding:0 15px;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:10px;font-size:13px;background:#fff}
+.grid2{display:grid;grid-template-columns:250px 1fr;gap:40px;padding:28px 0 70px}
+.filter{margin-bottom:26px}
+.filter h5{font-size:13px;font-weight:600;margin-bottom:14px;text-transform:uppercase;letter-spacing:.06em}
+.fopt{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-soft);margin-bottom:11px}
+.box{width:18px;height:18px;border:1.5px solid var(--border);border-radius:5px;display:inline-flex;align-items:center;justify-content:center}
+.box.ck{background:var(--ink);border-color:var(--ink);color:#fff;font-size:11px}
+.fopt .ct{margin-left:auto;color:var(--ink-muted);font-size:12px}
+.range{height:5px;background:var(--ivory-deep);border-radius:99px;position:relative;margin:22px 6px}
+.range .sel{position:absolute;height:100%;left:18%;right:34%;background:var(--gold);border-radius:99px}
+.range .h{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;background:#fff;border:2px solid var(--ink);border-radius:99px}
+.pgrid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.pager{display:flex;gap:8px;justify-content:center;margin-top:44px}
+.pg{width:40px;height:40px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:#fff}
+.pg.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+</style></head><body>
+<div class="top"><div class="wrap"><span>✦ Complimentary shipping over $150 — worldwide</span><span>400+ independent makers · Vendor payouts powered by Stripe</span></div></div>
+<div class="nav"><div class="wrap">
+  <div style="display:flex;align-items:center;gap:44px"><div class="brand serif">Luxe<span class="dot">Market</span></div>
+  <div class="menu"><a>New In</a><a style="color:var(--ink);font-weight:600">Watches</a><a>Bags</a><a>Jewelry</a><a>Home</a><a style="color:var(--gold-deep)">Sale</a></div></div>
+  <div style="display:flex;align-items:center;gap:18px"><div class="pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>“watch”</span></div>
+  <div class="navicons"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="cartdot"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 11a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="ct">3</span></div></div></div>
+</div></div>
+
+<div class="wrap">
+  <div class="lhead">
+    <div class="crumb" style="font-size:13px;color:var(--ink-muted)">Home / <b style="color:var(--ink);font-weight:500">Watches</b></div>
+    <h1 style="margin-top:10px">Watches</h1>
+    <div class="lbar">
+      <div class="chips"><span style="font-size:13.5px;color:var(--ink-muted)">1,240 results</span><span class="chip on">Under $500 ✕</span><span class="chip">Automatic ✕</span></div>
+      <div class="sort">Sort: <b>Recommended</b> <span class="muted">▾</span></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <aside>
+      <div class="filter"><h5>Category</h5>
+        <div class="fopt"><span class="box ck">✓</span>Watches <span class="ct">1,240</span></div>
+        <div class="fopt"><span class="box"></span>Smartwatches <span class="ct">320</span></div>
+        <div class="fopt"><span class="box"></span>Watch straps <span class="ct">180</span></div>
+        <div class="fopt"><span class="box"></span>Accessories <span class="ct">95</span></div>
+      </div>
+      <div class="filter"><h5>Price</h5>
+        <div class="range"><div class="sel"></div><div class="h" style="left:18%"></div><div class="h" style="left:66%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--ink-muted)"><span>$120</span><span>$1,800</span></div>
+      </div>
+      <div class="filter"><h5>Vendor</h5>
+        <div class="fopt"><span class="box ck">✓</span>Atelier Horology <span class="ct">64</span></div>
+        <div class="fopt"><span class="box"></span>Rivage Optics <span class="ct">28</span></div>
+        <div class="fopt"><span class="box"></span>Corso Milano <span class="ct">41</span></div>
+      </div>
+      <div class="filter"><h5>Rating</h5>
+        <div class="fopt"><span class="box ck">✓</span><span class="stars">★★★★</span>&amp; up <span class="ct">870</span></div>
+        <div class="fopt"><span class="box"></span><span class="stars">★★★</span>&amp; up <span class="ct">1,110</span></div>
+      </div>
+      <div class="filter"><h5>Availability</h5>
+        <div class="fopt"><span class="box ck">✓</span>In stock <span class="ct">1,180</span></div>
+      </div>
+    </aside>
+    <div>
+      <div class="pgrid3">
+        <div class="pcard"><div class="thumb"><span class="tag badge b-gold">New</span><div class="fav">♡</div><img src="../public/products/meridian-chronograph.jpg"></div><h4>Meridian Automatic Chronograph</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$1,280</div><div class="stars">★★★★★</div></div></div>
+        <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/halston-field-watch.jpg"></div><h4>Halston Field Watch</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$340</div><div class="stars">★★★★★</div></div></div>
+        <div class="pcard"><div class="thumb"><span class="tag badge b-red">−20%</span><div class="fav">♡</div><img src="../public/products/aurelia-chronograph.jpg"></div><h4>Aurelia Rose-Gold Chronograph</h4><div class="vend">Atelier Horology</div><div class="row"><div class="price">$416<span class="strike">$520</span></div><div class="stars">★★★★☆</div></div></div>
+        <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/studio-headphones.jpg"></div><h4>Studio Monitor Headphones</h4><div class="vend">Aria Sound</div><div class="row"><div class="price">$349</div><div class="stars">★★★★★</div></div></div>
+        <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/rivage-sunglasses.jpg"></div><h4>Rivage Round Sunglasses</h4><div class="vend">Rivage Optics</div><div class="row"><div class="price">$185</div><div class="stars">★★★★★</div></div></div>
+        <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/colette-sunglasses.jpg"></div><h4>Colette Cat-Eye Sunglasses</h4><div class="vend">Rivage Optics</div><div class="row"><div class="price">$210</div><div class="stars">★★★★☆</div></div></div>
+        <div class="pcard"><div class="thumb"><span class="tag badge b-gold">New</span><div class="fav">♡</div><img src="../public/products/corso-suede-derby.jpg"></div><h4>Corso Suede Derby</h4><div class="vend">Corso Milano</div><div class="row"><div class="price">$295</div><div class="stars">★★★★☆</div></div></div>
+        <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/aria-headphones.jpg"></div><h4>Aria Over-Ear Headphones</h4><div class="vend">Aria Sound</div><div class="row"><div class="price">$299</div><div class="stars">★★★★☆</div></div></div>
+        <div class="pcard"><div class="thumb"><div class="fav">♡</div><img src="../public/products/lumiere-pearl-necklace.jpg"></div><h4>Lumière Pearl Necklace</h4><div class="vend">Lumière Fine Jewelry</div><div class="row"><div class="price">$650</div><div class="stars">★★★★★</div></div></div>
+      </div>
+      <div class="pager"><span class="pg">‹</span><span class="pg on">1</span><span class="pg">2</span><span class="pg">3</span><span class="pg">…</span><span class="pg">28</span><span class="pg">›</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

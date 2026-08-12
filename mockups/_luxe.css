@@ -1,0 +1,105 @@
+/* LuxeMarket — shared mockup design system (mirrors the app's Tailwind tokens) */
+:root{
+  --ink:#0B0B0C; --ink-soft:#1A1A1D; --ink-muted:#6B6B70;
+  --ivory:#FAF8F4; --ivory-deep:#F1ECE3;
+  --gold:#B8945F; --gold-soft:#D9C4A1; --gold-deep:#8C6B3E;
+  --emerald:#0F6B4F; --danger:#B4432B; --amber:#B7791F;
+  --border:rgba(11,11,12,.09);
+  --shadow-card:0 1px 2px rgba(11,11,12,.04), 0 10px 30px -14px rgba(11,11,12,.16);
+  --shadow-lift:0 18px 50px -20px rgba(11,11,12,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--ivory);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.55}
+img{max-width:100%;display:block;object-fit:cover}
+a{color:inherit;text-decoration:none}
+.serif{font-family:"Fraunces",Georgia,serif;letter-spacing:-.01em}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.22em;color:var(--gold-deep)}
+.muted{color:var(--ink-muted)}
+.hr{height:1px;background:var(--border);border:0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 26px;border-radius:9px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn.sm{height:38px;padding:0 16px;font-size:13px;border-radius:8px}
+.btn.lg{height:54px;padding:0 34px;font-size:15px}
+.btn-ink{background:var(--ink);color:var(--ivory)}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-out{background:transparent;color:var(--ink);border-color:rgba(11,11,12,.18)}
+.btn-ghost{background:transparent;color:var(--ink)}
+
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600}
+.b-neutral{background:rgba(11,11,12,.06);color:var(--ink)}
+.b-gold{background:rgba(184,148,95,.16);color:var(--gold-deep)}
+.b-green{background:rgba(15,107,79,.12);color:var(--emerald)}
+.b-amber{background:rgba(183,121,31,.14);color:var(--amber)}
+.b-red{background:rgba(180,67,43,.12);color:var(--danger)}
+.b-out{background:transparent;border:1px solid var(--border);color:var(--ink)}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-card)}
+
+/* storefront header */
+.top{background:var(--ink);color:var(--ivory);font-size:12.5px;letter-spacing:.04em}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;opacity:.9}
+.nav{position:sticky;top:0;background:rgba(250,248,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:5}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{font-size:25px;font-weight:600;letter-spacing:-.02em}
+.brand .dot{color:var(--gold)}
+.menu{display:flex;gap:30px;font-size:14px;font-weight:500}
+.menu a{color:var(--ink-soft)}
+.navicons{display:flex;gap:20px;align-items:center;color:var(--ink-soft)}
+.pill{display:flex;align-items:center;gap:9px;height:42px;padding:0 16px;border:1px solid var(--border);border-radius:999px;color:var(--ink-muted);font-size:13px;background:#fff;min-width:230px}
+.cartdot{position:relative}
+.cartdot .ct{position:absolute;top:-8px;right:-9px;background:var(--gold);color:var(--ink);font-size:10px;font-weight:700;height:17px;min-width:17px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+/* product card */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.pcard .thumb{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--ivory-deep)}
+.pcard .thumb img{width:100%;height:100%}
+.pcard .fav{position:absolute;top:12px;right:12px;height:34px;width:34px;border-radius:999px;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center}
+.pcard .tag{position:absolute;top:12px;left:12px}
+.pcard h4{font-size:15px;font-weight:600;margin-top:14px}
+.pcard .vend{font-size:12.5px;color:var(--ink-muted);margin-top:2px}
+.pcard .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.pcard .price{font-weight:600}
+.pcard .strike{color:var(--ink-muted);text-decoration:line-through;font-weight:400;font-size:13px;margin-left:6px}
+.stars{color:var(--gold);letter-spacing:1px;font-size:13px}
+
+/* section heading */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px}
+.sec-head h2{font-size:34px;font-weight:600;margin-top:10px}
+
+/* dashboard shell */
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100%}
+.side{background:var(--ink);color:var(--ivory);padding:26px 20px}
+.side .logo{font-size:20px;font-weight:600;padding:6px 12px 26px}
+.side .logo .dot{color:var(--gold)}
+.side .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:rgba(250,248,244,.4);padding:18px 12px 8px}
+.side a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;color:rgba(250,248,244,.72);font-size:14px;font-weight:500;margin-bottom:2px}
+.side a.on{background:rgba(255,255,255,.08);color:#fff}
+.side a.on .ic{color:var(--gold)}
+.ic{width:18px;height:18px;display:inline-block;opacity:.9}
+.main{background:var(--ivory);padding:0}
+.appbar{display:flex;justify-content:space-between;align-items:center;height:74px;padding:0 34px;border-bottom:1px solid var(--border);background:rgba(250,248,244,.7)}
+.content{padding:32px 34px}
+.avatar{width:38px;height:38px;border-radius:999px;background:var(--gold-soft);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+
+/* stat tiles */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.tile{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow-card)}
+.tile .lbl{font-size:12.5px;color:var(--ink-muted);display:flex;align-items:center;gap:8px}
+.tile .val{font-size:30px;font-weight:600;margin-top:12px;letter-spacing:-.02em}
+.tile .val.serif{font-family:"Fraunces",serif}
+.delta{font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-top:10px}
+.delta.up{color:var(--emerald)} .delta.down{color:var(--danger)}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);font-weight:600;padding:12px 14px;border-bottom:1px solid var(--border)}
+td{padding:14px 14px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:0}
+.tprod{display:flex;align-items:center;gap:12px}
+.tprod img{width:44px;height:44px;border-radius:9px}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}

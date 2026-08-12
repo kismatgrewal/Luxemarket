@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Install · Validate · Unit tests
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "postgresql://luxe:luxe@localhost:5432/luxemarket?schema=public"
+      NEXTAUTH_SECRET: "ci-secret-not-used-in-production"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
+
+      - name: Validate Prisma schema
+        run: pnpm exec prisma validate
+
+      - name: Unit tests
+        run: pnpm test
+
+  # Type-checking and the production build are advisory: they surface issues on
+  # PRs without gating the pipeline while the app is under active development.
+  typecheck-build:
+    name: Typecheck · Build (advisory)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    env:
+      DATABASE_URL: "postgresql://luxe:luxe@localhost:5432/luxemarket?schema=public"
+      NEXTAUTH_SECRET: "ci-secret-not-used-in-production"
+      NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm db:generate
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Build
+        run: pnpm build

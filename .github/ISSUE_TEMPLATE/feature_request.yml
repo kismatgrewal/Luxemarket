@@ -1,0 +1,73 @@
+name: Feature request
+description: Suggest an idea or enhancement for LuxeMarket
+title: "feat: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Please search existing issues and discussions
+        first to avoid duplicates.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem is this solving? Who is affected and when?
+      placeholder: "As a vendor, I can't ... which makes it hard to ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you'd like and how it would behave.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the app would this affect?
+      options:
+        - Storefront (browse/product/cart)
+        - Checkout / Payments (Stripe)
+        - Vendor dashboard
+        - Admin console
+        - Orders / Fulfilment
+        - Payouts
+        - AI descriptions (OpenAI)
+        - Automations (n8n / webhooks)
+        - Auth / RBAC
+        - Developer experience / tooling
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you evaluated and why you set them aside.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Mockups, links, related issues, or examples from other products.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues/discussions and this is not a duplicate.
+          required: true
+        - label: This request is about a single, well-scoped enhancement.
+          required: true

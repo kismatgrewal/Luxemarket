@@ -1,0 +1,178 @@
+{
+  "name": "LuxeMarket — Order Notification",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "luxemarket-events",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "b1a1f5e0-0001-4a10-9c01-1a2b3c4d5e01",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-360, 320],
+      "webhookId": "luxemarket-events"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "typeValidation": "strict" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.headers['x-luxe-event'] }}",
+              "rightValue": "order.paid",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b1a1f5e0-0002-4a10-9c01-1a2b3c4d5e02",
+      "name": "Is order.paid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [-120, 320]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "a1", "name": "orderNumber", "value": "={{ $json.body.data.orderNumber }}", "type": "string" },
+            { "id": "a2", "name": "customerEmail", "value": "={{ $json.body.data.customerEmail }}", "type": "string" },
+            { "id": "a3", "name": "customerName", "value": "={{ $json.body.data.customerName || 'there' }}", "type": "string" },
+            { "id": "a4", "name": "totalFormatted", "value": "={{ '$' + ($json.body.data.totalCents / 100).toFixed(2) }}", "type": "string" },
+            { "id": "a5", "name": "itemCount", "value": "={{ $json.body.data.itemCount }}", "type": "number" },
+            { "id": "a6", "name": "eventId", "value": "={{ $json.body.id }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1a1f5e0-0003-4a10-9c01-1a2b3c4d5e03",
+      "name": "Shape Order",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [140, 200]
+    },
+    {
+      "parameters": {
+        "fromEmail": "orders@luxemarket.com",
+        "toEmail": "={{ $json.customerEmail }}",
+        "subject": "Your LuxeMarket order {{ $json.orderNumber }} is confirmed",
+        "emailFormat": "html",
+        "html": "<p>Hi {{ $json.customerName }},</p><p>Thank you for your order <strong>{{ $json.orderNumber }}</strong>. We've received your payment of <strong>{{ $json.totalFormatted }}</strong> for {{ $json.itemCount }} item(s).</p><p>Each vendor will begin preparing your pieces shortly — you'll get tracking as they ship.</p><p>— The LuxeMarket team</p>",
+        "options": {}
+      },
+      "id": "b1a1f5e0-0004-4a10-9c01-1a2b3c4d5e04",
+      "name": "Email Customer",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [400, 120],
+      "credentials": {
+        "smtp": { "id": "1", "name": "LuxeMarket SMTP" }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": { "__rl": true, "value": "#orders", "mode": "name" },
+        "text": ":moneybag: New paid order *{{ $json.orderNumber }}* — {{ $json.totalFormatted }} ({{ $json.itemCount }} items)",
+        "otherOptions": {}
+      },
+      "id": "b1a1f5e0-0005-4a10-9c01-1a2b3c4d5e05",
+      "name": "Notify #orders",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [400, 300],
+      "credentials": {
+        "slackApi": { "id": "2", "name": "LuxeMarket Slack" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sign the acknowledgement so the LuxeMarket callback route accepts it.\nconst crypto = require('crypto');\nconst secret = $env.N8N_WEBHOOK_SECRET;\nconst timestamp = Date.now().toString();\nconst payload = {\n  id: $('Shape Order').first().json.eventId + ':ack',\n  type: 'notification.sent',\n  data: { orderNumber: $('Shape Order').first().json.orderNumber, channel: '#orders' },\n};\nconst body = JSON.stringify(payload);\nconst signature = 'sha256=' + crypto.createHmac('sha256', secret).update(timestamp + '.' + body).digest('hex');\nreturn [{ json: { body, timestamp, signature } }];"
+      },
+      "id": "b1a1f5e0-0006-4a10-9c01-1a2b3c4d5e06",
+      "name": "Sign Callback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.LUXE_APP_URL }}/api/webhooks/n8n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "content-type", "value": "application/json" },
+            { "name": "x-luxe-event", "value": "notification.sent" },
+            { "name": "x-luxe-timestamp", "value": "={{ $json.timestamp }}" },
+            { "name": "x-luxe-signature", "value": "={{ $json.signature }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "b1a1f5e0-0007-4a10-9c01-1a2b3c4d5e07",
+      "name": "Ack to LuxeMarket",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"received\": true } }}",
+        "options": {}
+      },
+      "id": "b1a1f5e0-0008-4a10-9c01-1a2b3c4d5e08",
+      "name": "Respond 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [140, 460]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Is order.paid?", "type": "main", "index": 0 }]]
+    },
+    "Is order.paid?": {
+      "main": [
+        [
+          { "node": "Shape Order", "type": "main", "index": 0 },
+          { "node": "Respond 200", "type": "main", "index": 0 }
+        ],
+        [{ "node": "Respond 200", "type": "main", "index": 0 }]
+      ]
+    },
+    "Shape Order": {
+      "main": [
+        [
+          { "node": "Email Customer", "type": "main", "index": 0 },
+          { "node": "Notify #orders", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Notify #orders": {
+      "main": [[{ "node": "Sign Callback", "type": "main", "index": 0 }]]
+    },
+    "Sign Callback": {
+      "main": [[{ "node": "Ack to LuxeMarket", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "templateCredsSetupCompleted": false },
+  "tags": [{ "name": "luxemarket" }]
+}

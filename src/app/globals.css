@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: "Inter", system-ui, sans-serif;
+    --font-fraunces: "Fraunces", Georgia, serif;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    @apply bg-gold/25;
+  }
+}
+
+@layer components {
+  .container-luxe {
+    @apply mx-auto w-full max-w-[1360px] px-6;
+  }
+
+  /* Thin uppercase eyebrow label used across editorial sections. */
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.2em] text-ink-muted;
+  }
+
+  .display {
+    @apply font-serif tracking-tight text-ink;
+  }
+}

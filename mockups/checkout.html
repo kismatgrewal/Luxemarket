@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_luxe.css">
+<style>
+.conav{border-bottom:1px solid var(--border)}
+.conav .wrap{display:flex;justify-content:space-between;align-items:center;height:72px}
+.steps{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--ink-muted)}
+.steps b{color:var(--ink)}
+.co{display:grid;grid-template-columns:1.25fr 1fr;gap:60px;padding:44px 0 80px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:7px;color:var(--ink-soft)}
+.inp{height:50px;border:1px solid var(--border);border-radius:10px;background:#fff;display:flex;align-items:center;padding:0 15px;font-size:14.5px;color:var(--ink)}
+.inp.ph{color:var(--ink-muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+h3.step{font-family:"Fraunces",serif;font-size:22px;font-weight:600;margin:30px 0 16px;display:flex;align-items:center;gap:12px}
+h3.step .num{width:26px;height:26px;border-radius:999px;background:var(--ink);color:var(--ivory);font-size:13px;display:flex;align-items:center;justify-content:center;font-family:"Inter"}
+.express{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.xbtn{height:50px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff}
+.orwrap{display:flex;align-items:center;gap:14px;color:var(--ink-muted);font-size:12px;margin:14px 0}
+.orwrap:before,.orwrap:after{content:"";flex:1;height:1px;background:var(--border)}
+.cardbox{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.cardrow{display:flex;align-items:center;justify-content:space-between;padding:15px;border-bottom:1px solid var(--border);font-size:14.5px;color:var(--ink)}
+.cardrow:last-child{border:0}
+.summary{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px;box-shadow:var(--shadow-card);position:sticky;top:20px}
+.li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.li img{width:64px;height:64px;border-radius:11px;object-fit:cover}
+.li .qb{position:relative}
+.li .qn{position:absolute;top:-8px;right:-8px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;height:20px;width:20px;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.trow{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--ink-muted)}
+.trow.total{color:var(--ink);font-weight:700;font-size:18px;padding-top:14px;border-top:1px solid var(--border);margin-top:8px}
+.trow.total b{font-family:"Fraunces",serif}
+.secure{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-muted);margin-top:16px;justify-content:center}
+</style></head><body>
+<div class="conav"><div class="wrap">
+  <div class="brand serif">Luxe<span class="dot">Market</span></div>
+  <div class="steps"><b>Cart</b><span>→</span><b>Information</b><span>→</span><b style="color:var(--gold-deep)">Payment</b></div>
+  <div style="font-size:12.5px;color:var(--ink-muted);display:flex;gap:7px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure checkout</div>
+</div></div>
+
+<div class="wrap"><div class="co">
+  <div>
+    <h3 class="step"><span class="num">1</span>Contact</h3>
+    <div class="field"><label>Email address</label><div class="inp">jordan.avery@gmail.com</div></div>
+
+    <h3 class="step"><span class="num">2</span>Shipping address</h3>
+    <div class="two"><div class="field"><label>First name</label><div class="inp">Jordan</div></div><div class="field"><label>Last name</label><div class="inp">Avery</div></div></div>
+    <div class="field"><label>Address</label><div class="inp">128 Waverly Place, Apt 4C</div></div>
+    <div class="three"><div class="field"><label>City</label><div class="inp">New York</div></div><div class="field"><label>State</label><div class="inp">NY</div></div><div class="field"><label>ZIP</label><div class="inp">10014</div></div></div>
+
+    <h3 class="step"><span class="num">3</span>Payment</h3>
+    <div class="express">
+      <div class="xbtn" style="background:#000">🍎&nbsp; Pay</div>
+      <div class="xbtn" style="background:#5433ff">Pay with <b style="margin-left:5px">Link</b></div>
+    </div>
+    <div class="orwrap">Or pay with card</div>
+    <div class="cardbox">
+      <div class="cardrow"><span class="muted">Card number</span><span style="letter-spacing:2px">4242 4242 4242 4242 &nbsp;<svg width="26" height="16" viewBox="0 0 26 16"><rect width="26" height="16" rx="2" fill="#1a1f71"/><text x="13" y="11" fill="#fff" font-size="7" text-anchor="middle" font-family="Arial" font-weight="bold">VISA</text></svg></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div class="cardrow" style="border-right:1px solid var(--border)"><span class="muted">Expiry</span><span>04 / 28</span></div>
+        <div class="cardrow"><span class="muted">CVC</span><span>•••</span></div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--ink-muted);margin-top:12px;display:flex;gap:7px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Payments are processed securely by Stripe. LuxeMarket never stores your card details.</p>
+    <a class="btn btn-ink lg" style="width:100%;justify-content:center;margin-top:18px">Pay $1,616.20</a>
+  </div>
+
+  <div>
+    <div class="summary">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b class="serif" style="font-size:19px">Order summary</b><span class="badge b-neutral">3 items</span></div>
+      <div class="li"><div class="qb"><img src="../public/products/meridian-chronograph.jpg"><span class="qn">1</span></div><div style="flex:1"><div style="font-weight:600;font-size:14px">Meridian Automatic Chronograph</div><div class="muted" style="font-size:12.5px">Atelier Horology · Brushed steel</div></div><div style="font-weight:600">$1,280</div></div>
+      <div class="li"><div class="qb"><img src="../public/products/rivage-sunglasses.jpg"><span class="qn">1</span></div><div style="flex:1"><div style="font-weight:600;font-size:14px">Rivage Round Sunglasses</div><div class="muted" style="font-size:12.5px">Rivage Optics</div></div><div style="font-weight:600">$157</div></div>
+      <div class="li"><div class="qb"><img src="../public/products/botanica-facial-oil.jpg"><span class="qn">1</span></div><div style="flex:1"><div style="font-weight:600;font-size:14px">Botanica Facial Oil</div><div class="muted" style="font-size:12.5px">Botanica Skincare</div></div><div style="font-weight:600">$78</div></div>
+      <div style="display:flex;gap:10px;margin:18px 0"><div class="inp ph" style="flex:1;height:44px">Gift or promo code</div><a class="btn btn-out sm">Apply</a></div>
+      <div class="trow"><span>Subtotal</span><span class="mono" style="color:var(--ink)">$1,515.00</span></div>
+      <div class="trow"><span>Shipping</span><span style="color:var(--emerald);font-weight:600">Free</span></div>
+      <div class="trow"><span>Estimated tax</span><span class="mono" style="color:var(--ink)">$101.20</span></div>
+      <div class="trow total"><span>Total</span><b>$1,616.20</b></div>
+      <div class="secure"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6Z"/></svg>256-bit encrypted · Buyer protection included</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

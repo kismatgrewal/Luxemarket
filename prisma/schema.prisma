@@ -1,0 +1,441 @@
+// LuxeMarket — Prisma schema
+// Multi-vendor marketplace data model: identity & RBAC, vendor stores,
+// catalog, cart, the order lifecycle (payment → fulfillment → delivery),
+// vendor payouts, reviews, and integration bookkeeping.
+//
+// Money is stored as integer minor units (cents) to avoid float drift.
+
+generator client {
+  provider      = "prisma-client-js"
+  // "native" for local dev; the rhel target covers Vercel's serverless runtime.
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Identity & access control
+// ---------------------------------------------------------------------------
+
+enum Role {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role      @default(CUSTOMER)
+
+  accounts Account[]
+  sessions Session[]
+
+  vendor    Vendor?
+  cart      Cart?
+  orders    Order[]
+  reviews   Review[]
+  addresses Address[]
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([role])
+}
+
+// NextAuth.js adapter models.
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Vendors
+// ---------------------------------------------------------------------------
+
+enum VendorStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+  REJECTED
+}
+
+model Vendor {
+  id              String       @id @default(cuid())
+  userId          String       @unique
+  storeName       String
+  slug            String       @unique
+  tagline         String?
+  description     String?      @db.Text
+  logoUrl         String?
+  bannerUrl       String?
+  status          VendorStatus @default(PENDING)
+  // Marketplace commission taken from each sale, in basis points (e.g. 1200 = 12%).
+  commissionBps   Int          @default(1200)
+  stripeAccountId String?
+  payoutBalanceCents Int       @default(0)
+  ratingAvg       Float        @default(0)
+  ratingCount     Int          @default(0)
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products Product[]
+  orderItems OrderItem[]
+  payouts  Payout[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+// Catalog
+// ---------------------------------------------------------------------------
+
+model Category {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  imageUrl String?
+  parentId String?
+
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+  products Product[]
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+model Product {
+  id           String        @id @default(cuid())
+  vendorId     String
+  categoryId   String?
+  title        String
+  slug         String        @unique
+  description  String        @db.Text
+  priceCents   Int
+  compareAtCents Int?
+  currency     String        @default("USD")
+  sku          String        @unique
+  inventory    Int           @default(0)
+  status       ProductStatus @default(DRAFT)
+  // True when the description was drafted by the OpenAI copy generator.
+  aiGenerated  Boolean       @default(false)
+  ratingAvg    Float         @default(0)
+  ratingCount  Int           @default(0)
+
+  vendor     Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  category   Category?      @relation(fields: [categoryId], references: [id])
+  images     ProductImage[]
+  reviews    Review[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([vendorId])
+  @@index([categoryId])
+  @@index([status])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  position  Int     @default(0)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+// ---------------------------------------------------------------------------
+// Cart
+// ---------------------------------------------------------------------------
+
+model Cart {
+  id     String     @id @default(cuid())
+  userId String     @unique
+  user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items  CartItem[]
+
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int     @default(1)
+
+  cart    Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+// ---------------------------------------------------------------------------
+// Orders — the lifecycle from payment to delivery
+// ---------------------------------------------------------------------------
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FULFILLED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum FulfillmentStatus {
+  UNFULFILLED
+  PACKED
+  SHIPPED
+  DELIVERED
+}
+
+model Order {
+  id                    String      @id @default(cuid())
+  orderNumber           String      @unique
+  customerId            String
+  status                OrderStatus @default(PENDING)
+  subtotalCents         Int
+  taxCents              Int         @default(0)
+  shippingCents         Int         @default(0)
+  totalCents            Int
+  currency              String      @default("USD")
+  stripePaymentIntentId String?     @unique
+  shippingAddressId     String?
+
+  customer        User      @relation(fields: [customerId], references: [id])
+  shippingAddress Address?  @relation(fields: [shippingAddressId], references: [id])
+  items           OrderItem[]
+  payment         Payment?
+  shipments       Shipment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+}
+
+// One line per product. A single order can span multiple vendors, so the
+// marketplace commission is computed and stored per line item.
+model OrderItem {
+  id                String            @id @default(cuid())
+  orderId           String
+  productId         String
+  vendorId          String
+  title             String
+  quantity          Int
+  unitPriceCents    Int
+  commissionCents   Int
+  vendorEarningsCents Int
+  fulfillmentStatus FulfillmentStatus @default(UNFULFILLED)
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+  vendor  Vendor  @relation(fields: [vendorId], references: [id])
+
+  @@index([orderId])
+  @@index([vendorId])
+}
+
+enum PaymentStatus {
+  REQUIRES_PAYMENT
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  orderId               String        @unique
+  stripePaymentIntentId String        @unique
+  amountCents           Int
+  currency              String        @default("USD")
+  status                PaymentStatus @default(REQUIRES_PAYMENT)
+  method                String?
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Delivery tracking
+// ---------------------------------------------------------------------------
+
+enum ShipmentStatus {
+  LABEL_CREATED
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  EXCEPTION
+}
+
+model Shipment {
+  id                String         @id @default(cuid())
+  orderId           String
+  carrier           String
+  trackingNumber    String
+  status            ShipmentStatus @default(LABEL_CREATED)
+  estimatedDelivery DateTime?
+  // Ordered list of scan events: { status, location, timestamp }.
+  events            Json           @default("[]")
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+}
+
+// ---------------------------------------------------------------------------
+// Vendor payouts
+// ---------------------------------------------------------------------------
+
+enum PayoutStatus {
+  PENDING
+  IN_TRANSIT
+  PAID
+  FAILED
+}
+
+model Payout {
+  id              String       @id @default(cuid())
+  vendorId        String
+  amountCents     Int
+  currency        String       @default("USD")
+  status          PayoutStatus @default(PENDING)
+  periodStart     DateTime
+  periodEnd       DateTime
+  stripeTransferId String?
+
+  vendor Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([vendorId])
+}
+
+// ---------------------------------------------------------------------------
+// Reviews & addresses
+// ---------------------------------------------------------------------------
+
+model Review {
+  id         String  @id @default(cuid())
+  productId  String
+  customerId String
+  rating     Int
+  title      String?
+  body       String? @db.Text
+
+  product  Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  customer User    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([productId, customerId])
+  @@index([productId])
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  fullName   String
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  postalCode String
+  country    String  @default("US")
+  phone      String?
+  isDefault  Boolean @default(false)
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders Order[]
+
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------------------
+// Integration bookkeeping (Stripe & n8n webhooks, admin audit trail)
+// ---------------------------------------------------------------------------
+
+// Idempotency ledger so a webhook delivered twice is processed once.
+model WebhookEvent {
+  id          String    @id @default(cuid())
+  source      String // "stripe" | "n8n"
+  eventId     String    @unique
+  type        String
+  payload     Json
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([source, type])
+}
+
+model AuditLog {
+  id       String   @id @default(cuid())
+  actorId  String?
+  action   String
+  target   String?
+  metadata Json?
+  ip       String?
+  createdAt DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([actorId])
+  @@index([action])
+}

@@ -1,0 +1,148 @@
+{
+  "name": "LuxeMarket — Vendor Onboarding",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "luxemarket-events",
+        "responseMode": "responseNode",
+        "options": { "rawBody": true }
+      },
+      "id": "c2b2f6e0-0001-4b20-8d02-2b3c4d5e6f01",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-360, 320],
+      "webhookId": "luxemarket-events"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "typeValidation": "strict" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.headers['x-luxe-event'] }}",
+              "rightValue": "vendor.onboarded",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c2b2f6e0-0002-4b20-8d02-2b3c4d5e6f02",
+      "name": "Is vendor.onboarded?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [-120, 320]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "v1", "name": "storeName", "value": "={{ $json.body.data.storeName }}", "type": "string" },
+            { "id": "v2", "name": "slug", "value": "={{ $json.body.data.slug }}", "type": "string" },
+            { "id": "v3", "name": "contactEmail", "value": "={{ $json.body.data.contactEmail }}", "type": "string" },
+            { "id": "v4", "name": "contactName", "value": "={{ $json.body.data.contactName || 'there' }}", "type": "string" },
+            { "id": "v5", "name": "storefrontUrl", "value": "={{ $env.LUXE_APP_URL }}/store/{{ $json.body.data.slug }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c2b2f6e0-0003-4b20-8d02-2b3c4d5e6f03",
+      "name": "Shape Vendor",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [140, 200]
+    },
+    {
+      "parameters": {
+        "fromEmail": "partners@luxemarket.com",
+        "toEmail": "={{ $json.contactEmail }}",
+        "subject": "Welcome to LuxeMarket, {{ $json.storeName }}",
+        "emailFormat": "html",
+        "html": "<p>Hi {{ $json.contactName }},</p><p>Your store <strong>{{ $json.storeName }}</strong> is approved and live. Your storefront is ready at <a href=\"{{ $json.storefrontUrl }}\">{{ $json.storefrontUrl }}</a>.</p><p>Next steps: finish your first three product listings, connect your payout account, and set your fulfilment lead times from the vendor dashboard.</p><p>— The LuxeMarket partnerships team</p>",
+        "options": {}
+      },
+      "id": "c2b2f6e0-0004-4b20-8d02-2b3c4d5e6f04",
+      "name": "Email Vendor",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [400, 120],
+      "credentials": { "smtp": { "id": "1", "name": "LuxeMarket SMTP" } }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": { "__rl": true, "value": "#vendor-ops", "mode": "name" },
+        "text": ":handshake: New vendor onboarded — *{{ $json.storeName }}* ({{ $json.storefrontUrl }})",
+        "otherOptions": {}
+      },
+      "id": "c2b2f6e0-0005-4b20-8d02-2b3c4d5e6f05",
+      "name": "Notify #vendor-ops",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [400, 300],
+      "credentials": { "slackApi": { "id": "2", "name": "LuxeMarket Slack" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.CRM_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"email\": $json.contactEmail, \"name\": $json.contactName, \"company\": $json.storeName, \"lifecycle\": \"vendor\", \"source\": \"luxemarket\" } }}",
+        "options": {}
+      },
+      "id": "c2b2f6e0-0006-4b20-8d02-2b3c4d5e6f06",
+      "name": "Create CRM Contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"received\": true } }}",
+        "options": {}
+      },
+      "id": "c2b2f6e0-0007-4b20-8d02-2b3c4d5e6f07",
+      "name": "Respond 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [140, 460]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Is vendor.onboarded?", "type": "main", "index": 0 }]]
+    },
+    "Is vendor.onboarded?": {
+      "main": [
+        [
+          { "node": "Shape Vendor", "type": "main", "index": 0 },
+          { "node": "Respond 200", "type": "main", "index": 0 }
+        ],
+        [{ "node": "Respond 200", "type": "main", "index": 0 }]
+      ]
+    },
+    "Shape Vendor": {
+      "main": [
+        [
+          { "node": "Email Vendor", "type": "main", "index": 0 },
+          { "node": "Notify #vendor-ops", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Notify #vendor-ops": {
+      "main": [[{ "node": "Create CRM Contact", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "templateCredsSetupCompleted": false },
+  "tags": [{ "name": "luxemarket" }]
+}
