@@ -69,7 +69,7 @@ export function CategoryForm({
         </label>
         <Input id="name" name="name" required defaultValue={initial?.name} placeholder="e.g. Leather goods" />
         <p className="mt-1.5 text-xs text-ink-muted">
-          Slug apne aap banega (e.g. "Leather goods" → "leather-goods"). Change karo to naya slug banta hai.
+          Slug apne aap banega (e.g. &ldquo;Leather goods&rdquo; → &ldquo;leather-goods&rdquo;). Change karo to naya slug banta hai.
         </p>
       </div>
 
